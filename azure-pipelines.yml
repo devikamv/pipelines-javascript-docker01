@@ -23,7 +23,7 @@ variables:
 
 
 stages:
-- stage: Build
+- stage: Build_Development
   displayName: Build stage-Development
   jobs:
   - job: Build
@@ -44,9 +44,9 @@ stages:
     - upload: manifests
       artifact: manifests
 
-- stage: Deploy
-  displayName: Deploy stage
-  dependsOn: Build
+- stage: Deploy_Development
+  displayName: Deploy stage-Development
+  dependsOn: Build_Development
 
   jobs:
   - deployment: Deploy
@@ -77,7 +77,7 @@ stages:
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
 
-- stage: Build
+- stage: Build_Production
   displayName: Build stage-Production
   jobs:
   - job: Build
@@ -98,9 +98,9 @@ stages:
     - upload: manifests
       artifact: manifests
 
-- stage: Deploy
-  displayName: Deploy stage
-  dependsOn: Build
+- stage: Deploy_Production
+  displayName: Deploy stage-Production
+  dependsOn: Build_Production
 
   jobs:
   - deployment: Deploy
